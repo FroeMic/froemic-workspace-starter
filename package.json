@@ -1,0 +1,32 @@
+{
+  "name": "froemic-workspace-starter",
+  "version": "1.0.0",
+  "description": "Multi-tenant Coding Agent - Module 0",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"pnpm --filter api dev\" \"pnpm --filter client dev\"",
+    "build": "pnpm --filter api build && pnpm --filter client build",
+    "lint": "pnpm --filter api lint && pnpm --filter client lint",
+    "typecheck": "pnpm --filter api typecheck && pnpm --filter client typecheck",
+    "db:migrate": "pnpm --filter api db:migrate",
+    "db:reset": "pnpm --filter api db:reset"
+  },
+  "workspaces": [
+    "api",
+    "client"
+  ],
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "concurrently": "^8.2.2",
+    "prettier": "^3.0.0",
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=8.0.0"
+  },
+  "packageManager": "pnpm@8.15.0",
+  "dependencies": {
+    "@mastra/pg": "^0.15.1"
+  }
+}

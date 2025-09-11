@@ -1,0 +1,13 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1757532319108,
+      "tag": "0000_slimy_captain_stacy",
+      "breakpoints": true
+    }
+  ]
+}
