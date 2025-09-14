@@ -21,7 +21,8 @@ export const sessions = pgTable('sessions', {
 export const jokes = pgTable('jokes', {
   id: uuid('id').primaryKey().default(sql`gen_random_uuid()`),
   userId: uuid('user_id').references(() => users.id, { onDelete: 'cascade' }).notNull(),
-  text: text('text').notNull(),
+  text: text('text'),
+  status: varchar('status', { length: 32 }).notNull().default('completed'),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });

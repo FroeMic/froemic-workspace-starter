@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useAuth } from '@/contexts/auth-context';
+import { jokesCollection } from '@/lib/jokes-collection';
 import { useElectricJokes } from '@/hooks/use-electric-jokes';
 import { apiClient } from '@/lib/api';
 import { Button } from '@/components/ui/button';
@@ -17,19 +18,24 @@ export function DashboardPage() {
   };
 
   const generateJoke = async () => {
+    if (!user) return;
     setGeneratingJoke(true);
     setGenerateError(null);
-    
+
     try {
-      const response = await apiClient.generateJoke();
-      if (response.success) {
-        // The new joke will automatically appear via ElectricSQL sync
-        console.log('Joke generated:', response.joke);
-        // Manually refetch to update TanStack DB collection
-        await refresh();
-      }
+      const id = crypto.randomUUID();
+
+      // Optimistic insert triggers collection onInsert => server placeholder + generate + refetch
+      jokesCollection.insert({
+        id,
+        userId: user.id,
+        text: null,
+        status: 'loading',
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      });
     } catch (error) {
-      setGenerateError(error instanceof Error ? error.message : 'Failed to generate joke');
+      setGenerateError(error instanceof Error ? error.message : 'Failed to start joke generation');
     } finally {
       setGeneratingJoke(false);
     }

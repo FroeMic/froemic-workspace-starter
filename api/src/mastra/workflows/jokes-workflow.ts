@@ -77,11 +77,12 @@ const saveJokeStep = createStep({
     const [joke] = await db.insert(jokes).values({
       userId,
       text: jokeText,
+      status: 'completed',
     }).returning();
     
     return {
       jokeId: joke.id,
-      joke: joke.text,
+      joke: jokeText,
       createdAt: joke.createdAt,
     };
   },
