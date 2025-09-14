@@ -100,6 +100,15 @@ importers:
       '@radix-ui/react-slot':
         specifier: ^1.1.0
         version: 1.2.3(@types/react@18.3.24)(react@18.3.1)
+      '@tanstack/query-db-collection':
+        specifier: ^0.2.16
+        version: 0.2.16(@tanstack/query-core@5.87.4)(typescript@5.9.2)
+      '@tanstack/react-db':
+        specifier: ^0.1.17
+        version: 0.1.17(react@18.3.1)(typescript@5.9.2)
+      '@tanstack/react-query':
+        specifier: ^5.87.4
+        version: 5.87.4(react@18.3.1)
       class-variance-authority:
         specifier: ^0.7.0
         version: 0.7.1
@@ -3515,6 +3524,63 @@ packages:
   /@standard-schema/spec@1.0.0:
     resolution: {integrity: sha512-m2bOd0f2RT9k8QJx1JN85cZYyH1RqFBdlwtkSlf4tBDYLCiiZnv1fIIwacK6cqwXavOydf0NPToMQgpKq+dVlA==}
 
+  /@tanstack/db-ivm@0.1.6(typescript@5.9.2):
+    resolution: {integrity: sha512-E9M4lP4PlUW6Su54xmqYjGRLMrjtq9akDC3G1DNYr7sqlDKQeR654kGbFc+XNqajr4pFZvA9hV/oQO8DTHNYxQ==}
+    peerDependencies:
+      typescript: '>=4.7'
+    dependencies:
+      fractional-indexing: 3.2.0
+      sorted-btree: 1.8.1
+      typescript: 5.9.2
+    dev: false
+
+  /@tanstack/db@0.2.4(typescript@5.9.2):
+    resolution: {integrity: sha512-cVMbfLhvb9HFeNBFOEwyfZFXI6k636eYA5mrALRnEUrVXeKvW1uRR6FZMlkR0UJft2rzypyHeIlLjU7QS17knA==}
+    peerDependencies:
+      typescript: '>=4.7'
+    dependencies:
+      '@standard-schema/spec': 1.0.0
+      '@tanstack/db-ivm': 0.1.6(typescript@5.9.2)
+      typescript: 5.9.2
+    dev: false
+
+  /@tanstack/query-core@5.87.4:
+    resolution: {integrity: sha512-uNsg6zMxraEPDVO2Bn+F3/ctHi+Zsk+MMpcN8h6P7ozqD088F6mFY5TfGM7zuyIrL7HKpDyu6QHfLWiDxh3cuw==}
+    dev: false
+
+  /@tanstack/query-db-collection@0.2.16(@tanstack/query-core@5.87.4)(typescript@5.9.2):
+    resolution: {integrity: sha512-ZQuw8w93jrL4Bv4ZomLEeErho2R3E/VfXm5pEiNcabpO9ouRS3pnSZq2qjVP5xq//h3RR4deccv/0QqqBr4fJQ==}
+    peerDependencies:
+      '@tanstack/query-core': ^5.0.0
+      typescript: '>=4.7'
+    dependencies:
+      '@standard-schema/spec': 1.0.0
+      '@tanstack/db': 0.2.4(typescript@5.9.2)
+      '@tanstack/query-core': 5.87.4
+      typescript: 5.9.2
+    dev: false
+
+  /@tanstack/react-db@0.1.17(react@18.3.1)(typescript@5.9.2):
+    resolution: {integrity: sha512-B9i5rUK1O8RYTo6mUPqBrVPFHt19bfffpKogUzp2ODht4h+weAfIV8fOyrQTliH/4ddjBSCj/EhdDL0i6T+gXg==}
+    peerDependencies:
+      react: '>=16.8.0'
+    dependencies:
+      '@tanstack/db': 0.2.4(typescript@5.9.2)
+      react: 18.3.1
+      use-sync-external-store: 1.5.0(react@18.3.1)
+    transitivePeerDependencies:
+      - typescript
+    dev: false
+
+  /@tanstack/react-query@5.87.4(react@18.3.1):
+    resolution: {integrity: sha512-T5GT/1ZaNsUXf5I3RhcYuT17I4CPlbZgyLxc/ZGv7ciS6esytlbjb3DgUFO6c8JWYMDpdjSWInyGZUErgzqhcA==}
+    peerDependencies:
+      react: ^18 || ^19
+    dependencies:
+      '@tanstack/query-core': 5.87.4
+      react: 18.3.1
+    dev: false
+
   /@types/aws-lambda@8.10.152:
     resolution: {integrity: sha512-soT/c2gYBnT5ygwiHPmd9a1bftj462NWVk2tKCc1PYHSIacB2UwbTS2zYG4jzag1mRDuzg/OjtxQjQ2NKRB6Rw==}
 
@@ -5357,6 +5423,11 @@ packages:
   /fraction.js@4.3.7:
     resolution: {integrity: sha512-ZsDfxO51wGAXREY55a7la9LScWpwv9RxIrYABrlvOFBlH/ShPnrtsXeuUIfXKKOVicNxQ+o8JTbJvjS4M89yew==}
     dev: true
+
+  /fractional-indexing@3.2.0:
+    resolution: {integrity: sha512-PcOxmqwYCW7O2ovKRU8OoQQj2yqTfEB/yeTYk4gPid6dN5ODRfU1hXd9tTVZzax/0NkO7AxpHykvZnT1aYp/BQ==}
+    engines: {node: ^14.13.1 || >=16.0.0}
+    dev: false
 
   /fresh@0.5.2:
     resolution: {integrity: sha512-zJ2mQYM18rEFOudeV4GShTGIQ7RbzA7ozbU9I/XBpm7kqgMywgmylMwXHxZJmkVoYkna9d2pVXVXPdYTP9ej8Q==}
@@ -7332,6 +7403,10 @@ packages:
     dependencies:
       atomic-sleep: 1.0.0
 
+  /sorted-btree@1.8.1:
+    resolution: {integrity: sha512-395+XIP+wqNn3USkFSrNz7G3Ss/MXlZEqesxvzCRFwL14h6e8LukDHdLBePn5pwbm5OQ9vGu8mDyz2lLDIqamQ==}
+    dev: false
+
   /source-map-js@1.2.1:
     resolution: {integrity: sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==}
     engines: {node: '>=0.10.0'}
@@ -7630,7 +7705,6 @@ packages:
     resolution: {integrity: sha512-CWBzXQrc/qOkhidw1OzBTQuYRbfyxDXJMVJ1XNwUHGROVmuaeiEm3OslpZ1RV96d7SKKjZKrSJu3+t/xlw3R9A==}
     engines: {node: '>=14.17'}
     hasBin: true
-    dev: true
 
   /ufo@1.6.1:
     resolution: {integrity: sha512-9a4/uxlTWJ4+a5i0ooc1rU7C7YOw3wT+UGqdeNNHWnOF9qcMBgLRS+4IYUqbczewFx4mLEig6gawh7X6mFlEkA==}

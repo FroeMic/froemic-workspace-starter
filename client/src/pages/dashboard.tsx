@@ -25,6 +25,8 @@ export function DashboardPage() {
       if (response.success) {
         // The new joke will automatically appear via ElectricSQL sync
         console.log('Joke generated:', response.joke);
+        // Manually refetch to update TanStack DB collection
+        await refresh();
       }
     } catch (error) {
       setGenerateError(error instanceof Error ? error.message : 'Failed to generate joke');
@@ -137,8 +139,9 @@ export function DashboardPage() {
                       key={joke.id}
                       className="p-4 bg-muted/50 rounded-lg border transition-all hover:bg-muted/70"
                     >
+                      {/* {JSON.stringify(joke)} */}
                       <p className="text-sm text-muted-foreground mb-2">
-                        {new Date(joke.created_at).toLocaleString()}
+                        {new Date(joke.createdAt).toLocaleString()}
                       </p>
                       <p className="text-foreground">{joke.text}</p>
                     </div>
