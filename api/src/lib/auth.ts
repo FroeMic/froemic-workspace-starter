@@ -5,7 +5,9 @@ import { db } from '../db/index.js';
 import { users, sessions } from '../db/schema.js';
 import type { User, Session } from '../db/schema.js';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
+import { env } from './env.js';
+
+const JWT_SECRET = env.JWT_SECRET;
 const SESSION_DURATION = 7 * 24 * 60 * 60 * 1000; // 7 days
 
 export interface AuthUser {

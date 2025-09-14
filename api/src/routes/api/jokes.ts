@@ -4,7 +4,6 @@ import { eq, desc } from 'drizzle-orm';
 import { db } from '../../db/index.js';
 import { jokes } from '../../db/schema.js';
 import { authMiddleware } from '../../middleware/auth.js';
-import { workflows } from '../../mastra/index.js';
 
 const createJokeSchema = z.object({
   text: z.string().min(1).max(1000),
@@ -13,7 +12,7 @@ const createJokeSchema = z.object({
 export const jokesApiRoutes = [
   registerApiRoute('/jokes', {
     method: 'GET',
-    middleware: [ authMiddleware],
+    middleware: [authMiddleware],
     handler: async (c) => {
       const user = c.get('user');
       
@@ -29,7 +28,7 @@ export const jokesApiRoutes = [
 
   registerApiRoute('/jokes', {
     method: 'POST',
-    middleware: [ authMiddleware],
+    middleware: [authMiddleware],
     handler: async (c) => {
       const user = c.get('user');
       const body = await c.req.json();
@@ -47,26 +46,33 @@ export const jokesApiRoutes = [
     },
   }),
 
+  // Commented out workflow handler for now
   registerApiRoute('/jokes/generate', {
     method: 'POST',
     middleware: [authMiddleware],
-    handler: async (c) => {
-      const user = c.get('user');
-      const body = await c.req.json().catch(() => ({}));
+    handler: async (ctx) => {
+      const user = ctx.get('user');
+      const body = await ctx.req.json().catch(() => ({}));
       
-      // Start the joke generation workflow
-      const result = await workflows.generateJoke.createRunAsync().then(run => run.start({
-        userId: user.id,
-        prompt: body.prompt,  // Optional prompt from request body
-      }));
+      // Get the Mastra instance from the context
+      const mastra = ctx.get('mastra');
+
+      const run = await mastra.getWorkflow('generateJoke').createRunAsync();
+
+
+      const result = await run.start({
+        inputData: {
+          userId: user.id,
+          prompt: body.prompt,
+        },
+      });
+
+      console.log(result);
+
       
-      return c.json({ 
-        success: true,
-        joke: {
-          id: result.jokeId,
-          text: result.joke,
-          createdAt: result.createdAt,
-        }
+      // Use the workflow handler
+      return ctx.json({
+        status: 'success',
       });
     },
   }),
